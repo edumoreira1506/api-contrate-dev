@@ -23,9 +23,13 @@ public class Role {
 	
 	@Column
 	private String role;
+	
+	@Column
+	private String token;
 
 	public Role(String token, String role) {
 		super();
 		this.role = role;
+		this.token = token;
 	}
 }
