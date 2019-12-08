@@ -1,13 +1,19 @@
 package br.edu.utfpr.contratedev.model.entity;
 
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,8 +25,10 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
+@Data
 public class User {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 	
@@ -45,11 +53,14 @@ public class User {
     @Column
     private String github;
     
-    @Column
+    @OneToOne
     private Role role;
     
     @OneToMany
     private Set<Tecnology> languages;
+    
+    private Date created;
+    private Date updated;
 
 	public User(String name, String email, String password, String description, String cellphone, char gender,
 			String github, Role role, Set<Tecnology> languages) {
@@ -64,4 +75,11 @@ public class User {
 		this.role = role;
 		this.languages = languages;
 	}
+	
+	@PrePersist
+    public void onSave() {
+        final Date now = new Date();
+        this.created = now;
+        this.updated = now;
+    }
 }

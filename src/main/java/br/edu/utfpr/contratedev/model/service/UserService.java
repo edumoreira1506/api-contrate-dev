@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import br.edu.utfpr.contratedev.model.entity.Role;
 import br.edu.utfpr.contratedev.model.entity.Tecnology;
 import br.edu.utfpr.contratedev.model.entity.User;
+import br.edu.utfpr.contratedev.model.repository.RoleRepository;
 import br.edu.utfpr.contratedev.model.repository.UserRepository;
 import br.edu.utfpr.contratedev.util.Constants;
 import br.edu.utfpr.contratedev.util.Sha256Generator;
@@ -22,10 +23,14 @@ public class UserService {
 	@Autowired
 	UserRepository userRepository;
 	
+	@Autowired
+	RoleRepository roleRepository;
+	
 	public void init() {
 		String adminToken = Sha256Generator.generate("admin@admin|admin");
 		Role roleAdmin = new Role(adminToken, Constants.ADMIN);
-		
+		roleRepository.save(roleAdmin);
+
 		String emptyString = null;
 		Set<Tecnology> emptyTecnologies = null;
 		User admin = new User("Antonio Eduardo Moreira", "admin@admin", Sha256Generator.generate("admin"), emptyString, emptyString, 'M', emptyString, roleAdmin, emptyTecnologies);

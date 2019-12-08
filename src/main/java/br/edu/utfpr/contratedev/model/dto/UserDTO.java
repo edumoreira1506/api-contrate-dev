@@ -9,7 +9,11 @@ import org.hibernate.validator.constraints.Length;
 
 import br.edu.utfpr.contratedev.model.entity.Tecnology;
 import br.edu.utfpr.contratedev.model.entity.User;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
+@Data
 public class UserDTO {
 	private Long id;
 	
