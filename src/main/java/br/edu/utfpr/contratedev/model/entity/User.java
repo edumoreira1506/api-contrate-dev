@@ -31,38 +31,38 @@ import lombok.ToString;
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-	
+	@Column(name = "id")
+	private Long id;
+
 	@Column
-    private String name;
-	
+	private String name;
+
 	@Column
 	private String email;
-    
-    @Column
-    private String password;
-    
-    @Column
+
+	@Column
+	private String password;
+
+	@Column
 	private String description;
-    
-    @Column
+
+	@Column
 	private String cellphone;
-    
-    @Column
+
+	@Column
 	private char gender;
-    
-    @Column
-    private String github;
-    
-    @OneToOne
-    private Role role;
-    
-    @OneToMany
-    private Set<Tecnology> tecnologies;
-    
-    private Date created;
-    private Date updated;
+
+	@Column
+	private String github;
+
+	@OneToOne
+	private Role role;
+
+	@OneToMany
+	private Set<Tecnology> tecnologies;
+
+	private Date created;
+	private Date updated;
 
 	public User(String name, String email, String password, String description, String cellphone, char gender,
 			String github, Role role, Set<Tecnology> tecnologies) {
@@ -77,7 +77,7 @@ public class User {
 		this.role = role;
 		this.tecnologies = tecnologies;
 	}
-	
+
 	public User(UserDTO user) {
 		this.name = user.getName();
 		this.email = user.getEmail();
@@ -89,21 +89,30 @@ public class User {
 		this.role = new Role(user.getRole());
 		this.tecnologies = this.parseAllTecnologies(user.getTecnologies());
 	}
-	
+
 	@PrePersist
-    public void onSave() {
-        final Date now = new Date();
-        this.created = now;
-        this.updated = now;
-    }
-	
+	public void onSave() {
+		final Date now = new Date();
+		this.created = now;
+		this.updated = now;
+	}
+
 	private Set<Tecnology> parseAllTecnologies(Set<TecnologyDTO> dtos) {
 		Set<Tecnology> tecnologies = null;
-		
-		for(TecnologyDTO tecnology : dtos) {
+
+		for (TecnologyDTO tecnology : dtos) {
 			tecnologies.add(new Tecnology(tecnology));
 		}
-		
+
 		return tecnologies;
+	}
+
+	public void update(UserDTO dto) {
+		this.name = dto.getName();
+		this.email = dto.getEmail();
+		this.description = dto.getDescription();
+		this.cellphone = dto.getCellphone();
+		this.gender = dto.getGender();
+		this.github = dto.getGithub();
 	}
 }
