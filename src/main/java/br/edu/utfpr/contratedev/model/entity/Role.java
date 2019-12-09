@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import br.edu.utfpr.contratedev.model.dto.RoleDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -39,5 +40,10 @@ public class Role {
 		super();
 		this.role = role;
 		this.token = token;
+	}
+	
+	public Role(RoleDTO role) {
+		this.role = role.getRole();
+		this.token = role.getToken();
 	}
 }

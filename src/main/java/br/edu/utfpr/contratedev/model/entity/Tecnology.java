@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import br.edu.utfpr.contratedev.model.dto.TecnologyDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -43,5 +44,11 @@ public class Tecnology {
 		this.name = name;
 		this.description = description;
 		this.experienceTime = experienceTime;
+	}
+	
+	public Tecnology(TecnologyDTO tecnology) {
+		this.name = tecnology.getName();
+		this.description = tecnology.getDescription();
+		this.experienceTime = tecnology.getExperienceTime();
 	}
 }

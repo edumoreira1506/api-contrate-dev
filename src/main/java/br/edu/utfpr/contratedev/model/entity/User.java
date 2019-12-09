@@ -13,6 +13,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
+import br.edu.utfpr.contratedev.model.dto.TecnologyDTO;
+import br.edu.utfpr.contratedev.model.dto.UserDTO;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -57,13 +59,13 @@ public class User {
     private Role role;
     
     @OneToMany
-    private Set<Tecnology> languages;
+    private Set<Tecnology> tecnologies;
     
     private Date created;
     private Date updated;
 
 	public User(String name, String email, String password, String description, String cellphone, char gender,
-			String github, Role role, Set<Tecnology> languages) {
+			String github, Role role, Set<Tecnology> tecnologies) {
 		super();
 		this.name = name;
 		this.email = email;
@@ -73,7 +75,19 @@ public class User {
 		this.gender = gender;
 		this.github = github;
 		this.role = role;
-		this.languages = languages;
+		this.tecnologies = tecnologies;
+	}
+	
+	public User(UserDTO user) {
+		this.name = user.getName();
+		this.email = user.getEmail();
+		this.password = user.getPassword();
+		this.description = user.getDescription();
+		this.cellphone = user.getCellphone();
+		this.gender = user.getGender();
+		this.github = user.getGithub();
+		this.role = new Role(user.getRole());
+		this.tecnologies = this.parseAllTecnologies(user.getTecnologies());
 	}
 	
 	@PrePersist
@@ -82,4 +96,14 @@ public class User {
         this.created = now;
         this.updated = now;
     }
+	
+	private Set<Tecnology> parseAllTecnologies(Set<TecnologyDTO> dtos) {
+		Set<Tecnology> tecnologies = null;
+		
+		for(TecnologyDTO tecnology : dtos) {
+			tecnologies.add(new Tecnology(tecnology));
+		}
+		
+		return tecnologies;
+	}
 }
