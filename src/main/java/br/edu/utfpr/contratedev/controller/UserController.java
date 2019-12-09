@@ -1,7 +1,6 @@
 package br.edu.utfpr.contratedev.controller;
 
 import java.util.Optional;
-import java.util.Set;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
@@ -12,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,10 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.edu.utfpr.contratedev.model.dto.TecnologyDTO;
 import br.edu.utfpr.contratedev.model.dto.UserDTO;
 import br.edu.utfpr.contratedev.model.entity.Role;
-import br.edu.utfpr.contratedev.model.entity.Tecnology;
 import br.edu.utfpr.contratedev.model.entity.User;
 import br.edu.utfpr.contratedev.model.repository.UserRepository;
 import br.edu.utfpr.contratedev.model.service.RoleService;
@@ -101,6 +99,21 @@ public class UserController {
 
         UserDTO dto = new UserDTO(user.get());
         response.setData(dto);
+        return ResponseEntity.ok(response);
+    }
+	
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<Response<String>> deleteById(@PathVariable Long id) {
+        Response<String> response = new Response<>();
+        Optional<User> o = userRepository.findById(id);
+
+        if (!o.isPresent()) {
+            log.info("Erro ao remover");
+            response.addError("Erro ao remover, registro não encontrado para o id " + id);
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        this.userRepository.deleteById(id);
         return ResponseEntity.ok(response);
     }
 }
