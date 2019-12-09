@@ -9,7 +9,11 @@ import org.hibernate.validator.constraints.Length;
 
 import br.edu.utfpr.contratedev.model.entity.Tecnology;
 import br.edu.utfpr.contratedev.model.entity.User;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
+@Data
 public class UserDTO {
 	private Long id;
 	
@@ -30,15 +34,13 @@ public class UserDTO {
     
 	private String cellphone;
     
-	@NotEmpty
 	private char gender;
     
     private String github;
     
-    @NotEmpty
     private RoleDTO role;
     
-    private Set<TecnologyDTO> languages;
+    private Set<TecnologyDTO> tecnologies;
     
     public UserDTO(User user) {
     	this.id = user.getId();
@@ -50,7 +52,7 @@ public class UserDTO {
     	this.gender = user.getGender();
     	this.github = user.getGithub();
     	this.role = new RoleDTO(user.getRole());
-    	this.languages = this.parseAllTecnologies(user.getLanguages());
+    	this.tecnologies = this.parseAllTecnologies(user.getTecnologies());
     }
 
 	public UserDTO(Long id,
@@ -62,7 +64,7 @@ public class UserDTO {
 			char gender,
 			String github,
 			RoleDTO role,
-			Set<Tecnology> languages) {
+			Set<Tecnology> tecnologies) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -73,14 +75,16 @@ public class UserDTO {
 		this.gender = gender;
 		this.github = github;
 		this.role = role;
-		this.languages = this.parseAllTecnologies(languages);
+		this.tecnologies = this.parseAllTecnologies(tecnologies);
 	}
 	
 	private Set<TecnologyDTO> parseAllTecnologies(Set<Tecnology> tecnologies) {
 		Set<TecnologyDTO> tecnologiesDTO = null;
 		
-		for(Tecnology tecnology : tecnologies) {
-			tecnologiesDTO.add(new TecnologyDTO(tecnology));
+		if (tecnologies != null) {
+			for(Tecnology tecnology : tecnologies) {
+				tecnologiesDTO.add(new TecnologyDTO(tecnology));
+			}	
 		}
 		
 		return tecnologiesDTO;

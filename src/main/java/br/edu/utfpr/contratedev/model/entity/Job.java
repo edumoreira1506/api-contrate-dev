@@ -1,9 +1,12 @@
 package br.edu.utfpr.contratedev.model.entity;
 
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -22,6 +25,7 @@ import lombok.ToString;
 @ToString
 public class Job {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 	
@@ -39,6 +43,9 @@ public class Job {
     
     @ManyToOne
     private Company company;
+    
+    private Date created;
+    private Date updated;
 
 	public Job(String name, Long salary, String description, Set<User> candidates, Company company) {
 		super();
