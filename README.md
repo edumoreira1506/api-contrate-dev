@@ -4,15 +4,15 @@ This is one API of "Contrate Dev" academic project. The system uses Java, Spring
 
 # Project requirements
 
-- [ ] The controllers should invoke one or more services (Os Controllers devem invocar um ou mais Services).
-- [ ] The services should invoke one or mone repositories (Os Services devem invocar um ou mais repositórios).
-- [ ] The controllers should receive and send DTOs (Os Controllers devem receber e enviar DTOs).
-- [ ] The controllers should be responsible for convert DTO to entities (Os Controllers devem ser responsáveis por converter DTOs em entidades e vice-versa).
-- [ ] Use transaction just on Service (Usar transação somente no Service).
-- [ ] Send answers in pattern success or error (Enviar respostas com formato (corpo) padronizado de sucesso ou erro).
-- [ ] Names of routes with substantives in english or portuguese (Nomes de rotas com substantivos em inglês ou português).
-- [ ] Send id with params in operations of edit or remove (Passar o id como parâmetro em operações de editar e remover).
-- [ ] Avoid data update with POST requests (Evitar atualização de dados com requisições POST).
+- [x] The controllers should invoke one or more services (Os Controllers devem invocar um ou mais Services).
+- [x] The services should invoke one or mone repositories (Os Services devem invocar um ou mais repositórios).
+- [x] The controllers should receive and send DTOs (Os Controllers devem receber e enviar DTOs).
+- [x] The controllers should be responsible for convert DTO to entities (Os Controllers devem ser responsáveis por converter DTOs em entidades e vice-versa).
+- [x] Use transaction just on Service (Usar transação somente no Service).
+- [x] Send answers in pattern success or error (Enviar respostas com formato (corpo) padronizado de sucesso ou erro).
+- [x] Names of routes with substantives in english or portuguese (Nomes de rotas com substantivos em inglês ou português).
+- [x] Send id with params in operations of edit or remove (Passar o id como parâmetro em operações de editar e remover).
+- [x] Avoid data update with POST requests (Evitar atualização de dados com requisições POST).
 - [ ] Avoid of one user should update or remove data from another user (Evitar que um usuário possa atualizar ou remover dados de outro usuário).
 - [ ] DTOs validation with Bean Validation (Validação de DTOs com Bean Validation).
 - [ ] Normal searches and with pagination (Buscas normais e com paginação).
