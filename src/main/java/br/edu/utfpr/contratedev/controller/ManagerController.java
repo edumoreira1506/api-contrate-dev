@@ -1,8 +1,8 @@
 package br.edu.utfpr.contratedev.controller;
 
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.Map.Entry;
 
 import javax.validation.Valid;
 
@@ -30,9 +30,9 @@ import br.edu.utfpr.contratedev.util.Response;
 import br.edu.utfpr.contratedev.util.Sha256Generator;
 
 @RestController
-@RequestMapping("/api/admins")
+@RequestMapping("/api/gerentes")
 @CrossOrigin(origins = "*")
-public class AdminController {
+public class ManagerController {
 	public static final Logger log = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
@@ -83,12 +83,12 @@ public class AdminController {
 				return ResponseEntity.badRequest().body(response);
 			}
 		}
-		String tokenAdmin = Sha256Generator.generate(dto.getEmail() + "|admin");
-		Role roleAdmin = new Role(tokenAdmin, Constants.ADMIN);
-		roleService.save(roleAdmin);
+		String tokenManager = Sha256Generator.generate(dto.getEmail() + "|manager");
+		Role roleManager = new Role(tokenManager, Constants.MANAGER);
+		roleService.save(roleManager);
 
 		User user = new User(dto.getName(), dto.getEmail(), Sha256Generator.generate(dto.getPassword()),
-				dto.getDescription(), dto.getCellphone(), dto.getGender(), dto.getGithub(), roleAdmin, null);
+				dto.getDescription(), dto.getCellphone(), dto.getGender(), dto.getGithub(), roleManager, null);
 		user = userService.save(user);
 
 		dto = new UserDTO(user);
